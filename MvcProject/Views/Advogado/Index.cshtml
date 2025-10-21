@@ -1,0 +1,114 @@
+@model IEnumerable<MvcProject.Models.Advogado>
+@{
+    ViewBag.Title = "Lista de Advogados";
+}
+
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="mb-1">Advogados</h2>
+            <p class="text-muted mb-0">Gerencie os advogados do sistema</p>
+        </div>
+        @Html.ActionLink("+ Novo Advogado", "Create", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+</div>
+
+@if (Model != null && Model.Any())
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="advogado-card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="advogado-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="senioridade-badge">
+                                <span class="badge @GetSenioridadeClass(item.Senioridade)">@GetSenioridadeText(item.Senioridade)</span>
+                            </div>
+                        </div>
+                        <h5 class="advogado-name">@item.Nome</h5>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>@item.Bairro, @item.Estado</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-home"></i>
+                            <span>@item.Logradouro, @item.Numero</span>
+                        </div>
+                        
+                        @if (!string.IsNullOrEmpty(item.Complemento))
+                        {
+                            <div class="info-item">
+                                <i class="fas fa-info-circle"></i>
+                                <span>@item.Complemento</span>
+                            </div>
+                        }
+                        
+                        <div class="info-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Cadastrado em @(item.DataCriacao?.ToString("dd/MM/yyyy") ?? "Data não disponível")</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <div class="action-buttons">
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
+                            @Html.ActionLink("Excluir", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="empty-state">
+        <div class="empty-icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <h3>Nenhum advogado encontrado</h3>
+        <p>Comece adicionando o primeiro advogado ao sistema</p>
+        @Html.ActionLink("Criar Primeiro Advogado", "Create", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+}
+
+@functions {
+    private string GetSenioridadeClass(MvcProject.Models.Senioridade senioridade)
+    {
+        switch (senioridade)
+        {
+            case MvcProject.Models.Senioridade.Junior:
+                return "bg-success";
+            case MvcProject.Models.Senioridade.Pleno:
+                return "bg-warning";
+            case MvcProject.Models.Senioridade.Senior:
+                return "bg-primary";
+            default:
+                return "bg-secondary";
+        }
+    }
+    
+    private string GetSenioridadeText(MvcProject.Models.Senioridade senioridade)
+    {
+        switch (senioridade)
+        {
+            case MvcProject.Models.Senioridade.Junior:
+                return "Junior";
+            case MvcProject.Models.Senioridade.Pleno:
+                return "Pleno";
+            case MvcProject.Models.Senioridade.Senior:
+                return "Senior";
+            default:
+                return "Indefinido";
+        }
+    }
+}

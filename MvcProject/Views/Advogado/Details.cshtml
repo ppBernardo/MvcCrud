@@ -1,0 +1,111 @@
+@model MvcProject.Models.AdvogadoViewModel
+@{
+    ViewBag.Title = "Detalhes do Advogado";
+}
+
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">@Html.DisplayFor(model => model.Nome)</h4>
+                <small class="text-muted">Informacoes completas do advogado</small>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">Informacoes Pessoais</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>Nome:</strong></div>
+                                    <div class="col-8">@Html.DisplayFor(model => model.Nome)</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>Senioridade:</strong></div>
+                                    <div class="col-8">
+                                        <span class="badge bg-primary">@Html.DisplayFor(model => model.Senioridade)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">Endereco</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>Logradouro:</strong></div>
+                                    <div class="col-8">@Html.DisplayFor(model => model.Logradouro)</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>Bairro:</strong></div>
+                                    <div class="col-8">@Html.DisplayFor(model => model.Bairro)</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>Estado:</strong></div>
+                                    <div class="col-8">@Html.DisplayFor(model => model.Estado)</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>CEP:</strong></div>
+                                    <div class="col-8">@Html.DisplayFor(model => model.Cep)</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>Numero:</strong></div>
+                                    <div class="col-8">@Html.DisplayFor(model => model.Numero)</div>
+                                </div>
+                                @if (!string.IsNullOrEmpty(Model.Complemento))
+                                {
+                                    <div class="row mb-2">
+                                        <div class="col-4"><strong>Complemento:</strong></div>
+                                        <div class="col-8">@Html.DisplayFor(model => model.Complemento)</div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.DataCriacao.HasValue || Model.DataAtualizacao.HasValue)
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0">Informacoes do Sistema</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                @if (Model.DataCriacao.HasValue)
+                                {
+                                    <div class="col-md-6">
+                                        <div class="row mb-2">
+                                            <div class="col-4"><strong>Data de Criacao:</strong></div>
+                                            <div class="col-8">@Html.DisplayFor(model => model.DataCriacao)</div>
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.DataAtualizacao.HasValue)
+                                {
+                                    <div class="col-md-6">
+                                        <div class="row mb-2">
+                                            <div class="col-4"><strong>Ultima Atualizacao:</strong></div>
+                                            <div class="col-8">@Html.DisplayFor(model => model.DataAtualizacao)</div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="d-flex justify-content-between mt-4">
+                    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-secondary" })
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

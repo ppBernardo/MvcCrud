@@ -1,0 +1,92 @@
+@model MvcProject.Models.AdvogadoViewModel
+@{
+    ViewBag.Title = "Excluir Advogado";
+}
+
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">Confirmar Exclusao</h4>
+                <small>Tem certeza que deseja excluir este advogado?</small>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Atencao!</strong> Esta acao nao pode ser desfeita. Todos os dados do advogado serao removidos permanentemente.
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">Informacoes Pessoais</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>Nome:</strong></div>
+                                    <div class="col-8">@Html.DisplayFor(model => model.Nome)</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>Senioridade:</strong></div>
+                                    <div class="col-8">
+                                        <span class="badge bg-primary">@Html.DisplayFor(model => model.Senioridade)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">Endereco</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>Logradouro:</strong></div>
+                                    <div class="col-8">@Html.DisplayFor(model => model.Logradouro)</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>Bairro:</strong></div>
+                                    <div class="col-8">@Html.DisplayFor(model => model.Bairro)</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>Estado:</strong></div>
+                                    <div class="col-8">@Html.DisplayFor(model => model.Estado)</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>CEP:</strong></div>
+                                    <div class="col-8">@Html.DisplayFor(model => model.Cep)</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4"><strong>Numero:</strong></div>
+                                    <div class="col-8">@Html.DisplayFor(model => model.Numero)</div>
+                                </div>
+                                @if (!string.IsNullOrEmpty(Model.Complemento))
+                                {
+                                    <div class="row mb-2">
+                                        <div class="col-4"><strong>Complemento:</strong></div>
+                                        <div class="col-8">@Html.DisplayFor(model => model.Complemento)</div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="d-flex justify-content-between mt-4">
+                        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Confirmar Exclusao
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

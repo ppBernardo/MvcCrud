@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Sistema de Advogados";
+}
+
+<div class="hero-section">
+    <div class="hero-background"></div>
+    <div class="hero-content">
+        <div class="hero-icon">
+            <i class="fas fa-balance-scale"></i>
+        </div>
+        <h1 class="hero-title">Sistema de Gerenciamento de Advogados</h1>
+        <p class="hero-subtitle">Gerencie sua equipe jurídica de forma eficiente e moderna</p>
+        <div class="hero-actions">
+            @Html.ActionLink("Ver Advogados", "Index", "Advogado", null, new { @class = "btn btn-primary btn-lg hero-btn" })
+            @Html.ActionLink("Adicionar Advogado", "Create", "Advogado", null, new { @class = "btn btn-outline-primary btn-lg hero-btn" })
+        </div>
+    </div>
+</div>
+
+<div class="features-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Funcionalidades</h2>
+            <p>Recursos completos para gerenciar sua equipe jurídica</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Gestão de Equipe</h3>
+                    <p>Gerencie informações completas dos advogados, incluindo dados pessoais e profissionais.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Controle de Senioridade</h3>
+                    <p>Classifique e acompanhe o nível de experiência de cada advogado da equipe.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Localização Completa</h3>
+                    <p>Mantenha registros detalhados de endereços e localização de todos os advogados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

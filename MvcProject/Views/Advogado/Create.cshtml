@@ -1,0 +1,130 @@
+@model MvcProject.Models.AdvogadoViewModel
+@{
+    ViewBag.Title = "Criar Advogado";
+}
+
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-user-plus fa-2x text-primary"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-0">Novo Advogado</h4>
+                        <small class="text-muted">Preencha os dados do advogado para cadastrá-lo no sistema</small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("Create", "Advogado", FormMethod.Post, new { @id = "advogadoForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "alert alert-warning" })
+
+                    <div class="row">
+                        <!-- Dados Pessoais -->
+                        <div class="col-lg-6">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-user me-2"></i>
+                                Dados Pessoais
+                            </h5>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Nome Completo *</label>
+                                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @placeholder = "Digite o nome completo", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Nivel de Senioridade *</label>
+                                @Html.DropDownListFor(model => model.Senioridade, Model.Senioridades, "Selecione a senioridade", new { @class = "form-control", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.Senioridade, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Endereco -->
+                        <div class="col-lg-6">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-map-marker-alt me-2"></i>
+                                Endereco
+                            </h5>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Logradouro *</label>
+                                @Html.EditorFor(model => model.Logradouro, new { htmlAttributes = new { @class = "form-control", @placeholder = "Rua, Avenida, etc.", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Logradouro, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Bairro *</label>
+                                @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nome do bairro", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Estado *</label>
+                                        @Html.DropDownListFor(model => model.Estado, Model.Estados, "Selecione o estado", new { @class = "form-control", @required = "required" })
+                                        @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">CEP *</label>
+                                        @Html.EditorFor(model => model.Cep, new { htmlAttributes = new { @class = "form-control", @placeholder = "00000-000", @required = "required", @maxlength = "9" } })
+                                        @Html.ValidationMessageFor(model => model.Cep, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Numero *</label>
+                                        @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control", @placeholder = "123", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Complemento</label>
+                                        @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Apto, Sala, etc." } })
+                                        @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-secondary btn-lg" })
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-save me-2"></i>
+                            Criar Advogado
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        // CEP Mask
+        document.addEventListener('DOMContentLoaded', function() {
+            const cepInput = document.querySelector('input[name="Cep"]');
+            if (cepInput) {
+                cepInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    value = value.replace(/(\d{5})(\d)/, '$1-$2');
+                    e.target.value = value;
+                });
+            }
+        });
+    </script>
+}
